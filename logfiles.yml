@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: true
+  tasks:
+
+  - name: Compressing log files
+    archive:
+      path: /var/log/*
+      dest: /tmp/logs.tar.gz
+
+  - name: Transfering the log files to Manage Node
+    fetch:
+      src: /tmp/logs.tar.gz
+      dest: /home/emman/logs/
+      flat: yes
